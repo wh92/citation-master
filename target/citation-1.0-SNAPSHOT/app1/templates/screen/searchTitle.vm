@@ -1,0 +1,22 @@
+<div>
+<b>	Please input the title keyword</b>
+		<table border="1">
+			<tr>
+				<td>title:</td>
+				<td> <input id="title" type="text" name="title" value=""/>  </td>
+			</tr>
+		</table>
+	<button class="button button-primary" onclick="checkAcc()"  name="SEARCH">SEARCH</button>
+</div>	
+
+<script type="text/javascript">
+ function checkAcc(){
+  	var title = $("#title").val();
+	if(title==""){
+		alert("Title Cannot Be Empty!")
+		return false
+	}
+	window.location.href="searchSuccess.htm?title=" + title;
+  };
+</script>
+

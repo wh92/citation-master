@@ -1,0 +1,25 @@
+	<h1>Insert title here</h1>
+	<form action="">
+		<div>outputResult: $!outputResult</div>
+        <div>message: $message</div>
+		<div>Title: $!title</div>
+		<div>Citation Count: $!citationCount
+		<table border="1">
+			<tr>
+				<th>Id</td>
+				<th>Year</td>
+				#foreach($!name in $!nameList)
+				<th>$!name</td>
+				#end
+			</tr>
+			#foreach($!share in $!shareList)
+			<tr>
+				#foreach($!item in $!share)
+				<th>item</th>
+				#end
+			</tr>
+			#end
+		</table>
+		<div>
+</form>
+
