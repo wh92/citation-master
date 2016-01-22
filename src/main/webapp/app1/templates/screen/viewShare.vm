@@ -1,25 +1,111 @@
-	<h1>Insert title here</h1>
+	<h1>Credit Shares</h1>
 	<form action="">
 		<div>outputResult: $!outputResult</div>
         <div>message: $message</div>
 		<div>Title: $!title</div>
-		<div>Citation Count: $!citationCount
+		<div>Citation Count: $!citationCount</div>
+		<div>Author Count: $!authorCount</div>
 		<table border="1">
 			<tr>
-				<th>Id</td>
-				<th>Year</td>
+				<th>Id</th>
+				<th>Year</th>
 				#foreach($!name in $!nameList)
-				<th>$!name</td>
+				<th>$!name</th>
 				#end
 			</tr>
 			#foreach($!share in $!shareList)
 			<tr>
 				#foreach($!item in $!share)
-				<th>item</th>
+				<td>$!item</td>
 				#end
 			</tr>
 			#end
 		</table>
-		<div>
 </form>
+
+
+<script src="http://g.tbcdn.cn/bui/acharts/1.0.32/acharts-min.js"></script>
+<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+<script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+<script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
+<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
+<input id="dataList" type="hidden" value="$!dataList" />
+<div id="canvas" class="float-left">
+</div>
+<script type="text/javascript">
+  function drawCanvas(dataArray, canvasId,canvasTitle){
+  	var chart = new AChart({
+          theme : AChart.Theme.Smooth2,
+          id : canvasId,
+          width : 800,
+          height : 800,
+          plotCfg : {
+            margin : [50,50,80] //画板的边距
+          },
+		  xAxis:{
+		  		title: {
+                    text: 'Year'
+				}
+		  },
+		   yAxis: {        //y轴添加title
+                title: {
+                    text: canvasTitle
+				},
+				ticks : [0,0.2,0.4, 0.6 ,0.8, 1.0]
+		 },
+          seriesOptions : {
+              lineCfg : {
+                markers : {
+                  marker : {
+                    'stroke-width' : 0.5,
+                    'fill-opacity' : .5
+                  },
+                  actived : {
+                      radius : 8	,
+                      stroke: '#fff'
+                  },
+pointInterval:5
+                }
+              }
+          },
+          tooltip : {
+            shared : true, //是否多个数据序列共同显示信息
+            crosshairs : true //是否出现基准线
+            /**/
+          },
+          series: [ {   
+		  		  id:'flag'+ canvasId,
+                  name: '' ,                                                                  
+                  data: dataArray 
+              }		
+	  ]
+        });
+ 
+        chart.render();
+  };
+  </script>
+<script type="text/javascript"> 
+  		var dataList=$("#dataList").val();
+		//alert(dataList);
+		var mid =eval(dataList);
+		var nameList=$("#nameList").val();
+		var accDataArray = new Array(mid.length);
+		var i =0;
+                var str="";
+		for(i=0;i<mid.length;i++){
+			accDataArray[i]=new ActiveXObject("Scripting.Dictionary");
+			accDataArray[i].add("name",);
+			
+			accDataArray[i] =new Array(2);
+			accDataArray[i][0]=parseInt(mid[i][1].a);
+                        str=str+accDataArray[i][0];
+			accDataArray[i][1]=mid[i][2].a;
+                        str=str+"-"+accDataArray[i][1];
+			accDataArray[i][2]=mid[i][3].a;
+			str=str+"-"+accDataArray[i][2]+";";
+		}
+          	alert(str);
+		drawCanvas(accDataArray,"canvas","Credit shares");
+</script>
 

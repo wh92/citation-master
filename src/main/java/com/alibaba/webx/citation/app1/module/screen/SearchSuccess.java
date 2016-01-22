@@ -18,7 +18,6 @@ import com.alibaba.citrus.turbine.Context;
 /**
  * 
  * @author xueye.duanxy
- * @version $Id: SearchSuccess.java, v 0.1 2016-1-21 下午4:52:56  Exp $
  */
 public class SearchSuccess {
 
@@ -86,16 +85,11 @@ public class SearchSuccess {
      * 
      * 
      * @author xueye.duanxy
-     * @version $Id: SearchSuccess.java, v 0.1 2016-1-21 下午7:53:32  Exp $
      */
     public class Paper {
-        /**名称*/
         private String title;
-        /**年份*/
         private String year;
-        /**刊物**/
         private String journal;
-        /**存储Id*/
         private String wosId;
 
         /**
