@@ -23,13 +23,6 @@
 		</table>
 </form>
 
-
-<script src="http://g.tbcdn.cn/bui/acharts/1.0.32/acharts-min.js"></script>
-<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
-<script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
-<script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
-<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
-<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
 <input id="dataList" type="hidden" value="$!dataList" />
 <div id="canvas" class="float-left">
 </div>
