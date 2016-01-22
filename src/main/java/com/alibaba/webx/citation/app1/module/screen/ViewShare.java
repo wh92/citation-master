@@ -100,16 +100,18 @@ public class ViewShare {
                 String[] countStr = str.split("\t");
                 //authorCnt = Integer.parseInt(countStr);
                 continue;
-            } else if (str.startsWith("Name") || str.startsWith("total")) {
+            } else if (str.startsWith("Name")) {
                 JSONObject jso=null;
                 String[] nameLineList=str.split("\t");
-            	for(int i=0;i<nameLineList.length;i++){
+            	for(int i=1;i<nameLineList.length;i++){
             		jso=new JSONObject();
-            		jso.put("name",nameLineList[i+1]);
+            		jso.put("name",nameLineList[i]);
             		nameJSList.add(jso);
             	}
             	continue;
-            } else {
+            } else if(str.startsWith("total")){
+            	continue;
+            } else{
                 //yearDataList.add(str);
                 String[] yearData = str.split("\t");
 

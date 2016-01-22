@@ -1,8 +1,9 @@
 <div>
-	<table>
+	<h2>Information of citations</h2>
+	<table class="table table-striped">
 				
 			#if($!message)
-				<font color="red">No result: $!message</font> 
+				<h2>&nbsp&nbsp&nbsp&nbsp<font color="red">No result: $!message</font></h2>
 			#else
         		<tr>
         			<th>Title</th>
@@ -12,10 +13,10 @@
         		</tr>
     			#foreach($!result in $!resultSet)
 				<tr>
-    				##<td >$!result.title</td>
+    				<td >$!result.title</td>
     				<td>$!result.year</td>
     				<td>$!result.journal</td>
-                    <td><button onclick="viewShare('$!result.wosId','$!result.title')"  name="ViewShare">View Share</button></td>
+                    <td><button class="button button-primary" onclick="viewShare('$!result.wosId','$!result.title')"  name="ViewShare">View Shares</button></td>
 				</tr>
 				#end
 			#end

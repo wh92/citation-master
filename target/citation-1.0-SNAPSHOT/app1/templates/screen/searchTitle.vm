@@ -1,5 +1,5 @@
 <div>
-<b>	Please input the title keyword</b>
+<b>	Please input the title keywords</b>
 		<table border="1">
 			<tr>
 				<td>title:</td>
@@ -19,4 +19,3 @@
 	window.location.href="searchSuccess.htm?title=" + title;
   };
 </script>
-
