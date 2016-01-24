@@ -175,6 +175,7 @@ public class ViewShare {
                 return;
             } else {
                 JSONObject citationCount = new JSONObject();
+                citationCount.put("year", line.split("\t")[0]);
                 citationCount.put("count", line.split("\t")[1]);
                 predictResultList.add(citationCount);
             }

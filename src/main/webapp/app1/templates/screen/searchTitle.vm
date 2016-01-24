@@ -1,4 +1,4 @@
-<div>
+<div align="center">
 
 	<h2>Please input the title</h2>
 	<br>
@@ -7,9 +7,13 @@
 			<td><h3>Title:&nbsp&nbsp</h3></td>
 			<td> <input class="input-large" id="title" type="text" name="title" value=""/>  </td>
 		</tr>
+		<tr>
+			<td class="autonewline"><h3>Year:&nbsp&nbsp</h3></td>
+			<td> <input class="input-large" id="year" type="text" name="year" value=""/>  </td>
+		</tr>
 	</table>
 	<br>
-	<button class="button button-primary" onclick="checkAcc()"  name="SEARCH">SEARCH</button>
+	<button class="button button-primary" onclick="checkAcc()"  name="SEARCH">SEARCH</button>	
 </div>	
 
 <script type="text/javascript">
@@ -19,6 +23,7 @@
 		alert("Title Cannot Be Empty!")
 		return false
 	}
-	window.location.href="searchSuccess.htm?title=" + title;
+	var year=$("#year").val();
+	window.location.href="searchSuccess.htm?title=" + title+"&year="+year;
   };
 </script>

@@ -1,7 +1,6 @@
 <div>
 	<h2>Information of citations</h2>
 	<table class="table table-striped">
-				
 			#if($!message)
 				<h2>&nbsp&nbsp&nbsp&nbsp<font color="red">No result: $!message</font></h2>
 			#else

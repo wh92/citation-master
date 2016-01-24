@@ -1,22 +1,29 @@
-	<h1>Credit Shares</h1>
+	<h2>Credit Shares</h2>
 	<form action="">
-		<div>outputResult: $!outputResult</div>
-        <div>message: $message</div>
-		<div>Title: $!title</div>
-		<div>Citation Count: $!citationCount</div>
-		<div>Author Count: $!authorCount</div>
-		<table border="1">
+		##<div>outputResult: $!outputResult</div>
+        ##<div>message: $message</div>
+		<div><b>Title:&nbsp&nbsp</b>  $!title</div>
+		<div><b>Citation Count:&nbsp&nbsp</b>    $!citationCount</div>
+		<div><b>Author Count:&nbsp&nbsp</b>    $!authorCount</div>
+		
+<div id="canvas" class="float-left">
+</div>
+<div id="predictCanvas" class="float-left">
+</div>
+		<table class="table table-striped">
 			<tr>
-				<th>Id</th>
-				<th>Year</th>
+				<th>Strength</th>
 				#foreach($!name in $!nameList)
 				<th>$!name</th>
 				#end
+				<th>Title</th>
 			</tr>
 			#foreach($!share in $!shareList)
 			<tr>
+				#set($itemId=1)
 				#foreach($!item in $!share)
-				<td>$!item</td>
+				#if($itemId!=1)	<td>$!item</td> #end
+				#set($itemId=$itemId+1)
 				#end
 			</tr>
 			#end
@@ -24,18 +31,44 @@
 </form>
 
 <input id="dataList" type="hidden" value="$!dataList" />
-<div id="canvas" class="float-left">
-</div>
+<input id="nameJSList" type="hidden" value="$!nameJSList"/>
+<input id="predictResult" type="hidden" value="$!predictResult"/>
+
+<script type="text/javascript">
+function dataConvert(dataArray,id,nameCount){
+    var newDataArray = new Array(dataArray.length);
+    if(nameCount<id) {
+    	return newDataArray;
+    }
+    for(var i=0; i< dataArray.length;i++){
+    	newDataArray[i] =new Array(2);
+    	newDataArray[i][0] =dataArray[i][0];
+    	newDataArray[i][1] =dataArray[i][id];
+    }
+return newDataArray;
+};
+function authorName(nameList,id){
+	if(nameList.length>=id){
+		return nameList[id-1].name;
+	}else{
+		return '';
+	}
+}
+</script>
 <script type="text/javascript">
   function drawCanvas(dataArray, canvasId,canvasTitle){
   	var chart = new AChart({
           theme : AChart.Theme.Smooth2,
           id : canvasId,
-          width : 800,
-          height : 800,
+          width : 600,
+          height : 400,
           plotCfg : {
             margin : [50,50,80] //画板的边距
           },
+		  title: {
+                text: 'Author Credit Share'
+            },
+	xTickCounts : [2,dataArray.length],
 		  xAxis:{
 		  		title: {
                     text: 'Year'
@@ -67,38 +100,112 @@ pointInterval:5
             crosshairs : true //是否出现基准线
             /**/
           },
-          series: [ {   
-		  		  id:'flag'+ canvasId,
-                  name: '' ,                                                                  
-                  data: dataArray 
-              }		
+          series: [{   
+                  name: authorName(nameList,1) ,                                                                  
+                  data: dataConvert(dataArray ,1,nameList.length)
+             	 }		,
+				  {   
+                  name: authorName(nameList,2) ,                                                                  
+                  data: dataConvert(dataArray ,2,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,3) ,                                                                  
+                  data: dataConvert(dataArray ,3,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,4) ,                                                                  
+                  data: dataConvert(dataArray ,4,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,5) ,                                                                  
+                  data: dataConvert(dataArray ,5,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,6) ,                                                                  
+                  data: dataConvert(dataArray ,6,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,7) ,                                                                  
+                  data: dataConvert(dataArray ,7,nameList.length)
+             	 }	,
+				 {   
+                  name: authorName(nameList,8) ,                                                                  
+                  data: dataConvert(dataArray ,8,nameList.length)
+             	 }		,
+				 {   
+                  name: authorName(nameList,9) ,                                                                  
+                  data: dataConvert(dataArray ,9,nameList.length)
+             	 },
+				 {   
+                  name: authorName(nameList,10) ,                                                                  
+                  data: dataConvert(dataArray ,10,nameList.length)
+             	 }
+		  
 	  ]
         });
  
         chart.render();
   };
   </script>
+  <script type="text/javascript">
+  function drawPredict(dataArray){
+  	var chart = new AChart({
+          theme : AChart.Theme.Smooth3,
+          id : 'predictCanvas',
+          width : 600,
+          height : 400,
+          plotCfg : {
+            margin : [50,50,80] //画板的边距
+          },
+		  title: {
+                text: 'Citation Count Prediction'
+            },
+          xAxis : {
+            categories : ['2013','2014','2015','2016','2017','2018','2019','2020']
+          },
+          seriesOptions : { //设置多个序列共同的属性
+            lineCfg : { //不同类型的图对应不同的共用属性，lineCfg,areaCfg,columnCfg等，type + Cfg 标示
+              smooth : true,
+              labels : { //标示显示文本
+                label : { //文本样式
+                  y : -15
+                }
+              }
+            }
+          },
+          tooltip : {
+		  	valueSuffix : 'citations',
+            crosshairs : true 
+          },
+          series : [{
+                name: 'Predicted Citation Count ',
+                data: dataArray
+            }]
+        });
+        chart.render();
+  };
+  </script>
 <script type="text/javascript"> 
   		var dataList=$("#dataList").val();
-		//alert(dataList);
 		var mid =eval(dataList);
-		var nameList=$("#nameList").val();
+		var nameJSList=$("#nameJSList").val();
+		var nameList=eval(nameJSList);
 		var accDataArray = new Array(mid.length);
 		var i =0;
-                var str="";
+		var nameListLength = nameList.length;
 		for(i=0;i<mid.length;i++){
-			accDataArray[i]=new ActiveXObject("Scripting.Dictionary");
-			accDataArray[i].add("name",);
-			
-			accDataArray[i] =new Array(2);
+			accDataArray[i] =new Array(nameList.length+1);
 			accDataArray[i][0]=parseInt(mid[i][1].a);
-                        str=str+accDataArray[i][0];
-			accDataArray[i][1]=mid[i][2].a;
-                        str=str+"-"+accDataArray[i][1];
-			accDataArray[i][2]=mid[i][3].a;
-			str=str+"-"+accDataArray[i][2]+";";
+			for(var j=1;j<=nameList.length;j++){
+				accDataArray[i][j]=mid[i][j+1].a;
+			}
 		}
-          	alert(str);
-		drawCanvas(accDataArray,"canvas","Credit shares");
+		drawCanvas(accDataArray,"canvas","Credit shares",nameList);
+		var predictResult=$("#predictResult").val();
+		var predictMid=eval(predictResult);
+		var predictDataArray = new Array(predictMid.length);
+		for(i=0;i<predictMid.length;i++){
+			predictDataArray[i]=parseInt(predictMid[i].count);
+		}
+		drawPredict(predictDataArray);
 </script>
-

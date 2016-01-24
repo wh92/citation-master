@@ -29,6 +29,7 @@ public class SearchSuccess {
      */
     public void execute(HttpServletRequest request,  Context context) {
         String titleStr = request.getParameter("title");
+        String year = request.getParameter("year");
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -39,16 +40,23 @@ public class SearchSuccess {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-
+        String sql="";
         try {
             conn = (Connection) DriverManager.getConnection(url, "shen", "123456");
             stmt = (Statement) conn.createStatement();
-            String sql = "select title,year,journal,wos_id from papers where match(title) against ("
-                         + "\"" + titleStr + "\"" + ") limit 10";
+            if (year=="" || year == null){
+            	sql= "select title,year,journal,wos_id from papers where match(title) against ("
+                        + "\"" + titleStr + "\"" + ") limit 10";
+            }else{
+            	sql="select title,year,journal,wos_id from papers where match(title) against ("
+                        + "\"" + titleStr + "\"" + ") and year = "+"\""+year+"\""+" limit 10";
+            }
+            	
             //System.out.println(sql);
             rs = stmt.executeQuery(sql);
         } catch (Exception e) {
             context.put("message", e.getMessage());
+            context.put("sql", sql);
             return;
         }
 
